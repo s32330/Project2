@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 10;
     public float jumpForce = 30;
     public Rigidbody2D rb;
+    public GroundChecker groundChecker;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
  }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && groundChecker.isGrounded)
 { 
         //rb.AddForce(new Vector2(0, jumpForce));
         //mozna to opisac inaczej
@@ -36,4 +38,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+   
 }
