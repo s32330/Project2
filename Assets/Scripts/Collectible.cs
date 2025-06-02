@@ -7,6 +7,7 @@ using UnityEngine;
     public class Collectible : MonoBehaviour
 {
     public object item;
+    public InventoryManager Inventory;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,9 +20,10 @@ using UnityEngine;
         {
 
             ItemsDatabase.Instance.PlayerItems.Add(ItemsDatabase.Instance.Items[0]);
-            Destroy(gameObject); 
-       
-          
+            Destroy(gameObject);
+            
+
+
         }
         //send info to player
         //Inventory playerInventory = null;

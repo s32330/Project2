@@ -11,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     public bool IsOpen;
     void Start()
     {
+        //by na starcie ekwipunek byl wylaczony
         Inventory = transform.Find("Inventory").gameObject;
         IsOpen = false;
         Inventory.SetActive(false);
@@ -24,7 +25,7 @@ public class InventoryManager : MonoBehaviour
             Inventory.SetActive(!Inventory.activeInHierarchy);
             IsOpen = !IsOpen;
 
-            //Gdy wy³¹czymy albo wy³¹czymy ekwipunek to sloty wracaj¹ do NormalColor bo inaczej jest bug
+            //Gdy wylaczymy albo wlaczymy ekwipunek to sloty wracaja do NormalColor bo inaczej jest bug
             for (int i = 0; i < Inventory.transform.childCount; i++)
             {
                 Slot slot = Inventory.transform.GetChild(i).GetComponent<Slot>();
@@ -34,6 +35,7 @@ public class InventoryManager : MonoBehaviour
             UpdateSlots();
         }
 
+        //proba ekwipunku
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             ItemsDatabase.Instance.PlayerItems.Add(ItemsDatabase.Instance.Items[0]);
@@ -41,7 +43,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void UpdateSlots()
+    public void UpdateSlots()
     {
         for (int i = 0; i < Inventory.transform.childCount; i++)
         {
