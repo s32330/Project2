@@ -9,11 +9,16 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 30;
     public Rigidbody2D rb;
     public GroundChecker groundChecker;
+    InventoryManager Inventory;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Inventory=GameObject.Find("Canvas").GetComponent<InventoryManager>();
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -37,6 +42,16 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce);
         }
 
+        //zeby kursor byl niewidoczny normalnie
+        if(Inventory.IsOpen)
+        { Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = false;
+        }
     }
 
    
