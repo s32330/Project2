@@ -11,15 +11,18 @@ public class PlayerController : MonoBehaviour
     public GroundChecker groundChecker;
     public PlayerHealth health;
     InventoryManager Inventory;
-    
+    private SpriteRenderer _spriteRenderer;
+    private Vector3 input;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health= GetComponent<PlayerHealth>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
 
         //do inventory
-       Inventory=GameObject.Find("Canvas").GetComponent<InventoryManager>();
+        Inventory =GameObject.Find("Canvas").GetComponent<InventoryManager>();
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
@@ -28,6 +31,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (health.isDead) return;
+
+
+        Move();
+
+        CursorController();
+    }
+
+    public void CursorController() {
         //zeby kursor byl niewidoczny normalnie
         if (Inventory.IsOpen)
         {
@@ -39,29 +52,56 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = false;
         }
+    }
+        
 
-        if (health.isDead) return;
+    public void Move() {
+
 
         float moveInput = Input.GetAxis("Horizontal");
-        //Debug.Log($"Input value: {moveInput}");
+        
+        float inputX = moveInput; //nowo dodane
+        float inputY = Input.GetAxis("Vertical"); //nowo dodane
+
+        input = new Vector3(inputX, inputY, 0);
+
+        Flip(moveInput);
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             rb.velocity = new Vector2(moveInput * runSpeed, rb.velocity.y);
         }
-        else {
+        else
+        {
 
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
- }
-
-        if (Input.GetKeyDown(KeyCode.Space) && groundChecker.isGrounded)
-{ 
-        //rb.AddForce(new Vector2(0, jumpForce));
-        //mozna to opisac inaczej
-        rb.AddForce(Vector2.up * jumpForce);
+            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
 
-      
+        if (Input.GetKeyDown(KeyCode.Space) && groundChecker.isGrounded)
+        {
+            //rb.AddForce(new Vector2(0, jumpForce));
+            //mozna to opisac inaczej
+            rb.AddForce(Vector2.up * jumpForce);
+        }
     }
 
-   
+
+    public void Flip(float moveInput)
+    {
+        if (moveInput > 0)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        else if (moveInput < 0)
+        {
+            _spriteRenderer.flipX = true;
+        }
+    }
+
+    public bool IsMoving()
+    {
+        
+        return input.x != 0;
+    }
+
 }

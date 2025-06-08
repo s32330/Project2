@@ -15,4 +15,9 @@ public class GroundChecker : MonoBehaviour
     {
         isGrounded = false;
     }
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
 }
