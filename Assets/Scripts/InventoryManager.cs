@@ -7,10 +7,16 @@ using Image = UnityEngine.UI.Image;
 
 public class InventoryManager : MonoBehaviour
 {
+
+    public static InventoryManager Instance;
+    
+
     GameObject Inventory;
     public bool IsOpen;
     void Start()
     {
+        Instance = this;
+
         //by na starcie ekwipunek byl wylaczony
         Inventory = transform.Find("Inventory").gameObject;
         IsOpen = false;
@@ -19,7 +25,8 @@ public class InventoryManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             Inventory.SetActive(!Inventory.activeInHierarchy);

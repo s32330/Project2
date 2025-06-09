@@ -12,14 +12,15 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private string isMovingParameterName = "IsMoving";
     [SerializeField] private string isGroundedParameterName = "IsGrounded";
     [SerializeField] private string isFallingParameterName = "IsFalling";
-    [SerializeField] private string isHurtingParameterName = "IsHurting";
+    [SerializeField] private string isHurtingParameterName = "IsHurt";
     [SerializeField] private string isDeadParameterName = "IsDead";
-
+    [SerializeField] private string SlideParameterName = "Slide";
     int _isMovingHash;
     int _isGroundedHash;
     int _isFallingHash;
     int _isHurtingHash;
     int _isDeadHash;
+    int _SlideHash;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class PlayerAnimator : MonoBehaviour
         _isFallingHash = Animator.StringToHash(isFallingParameterName);
         _isHurtingHash = Animator.StringToHash(isHurtingParameterName);
         _isDeadHash = Animator.StringToHash(isDeadParameterName);
+        _SlideHash = Animator.StringToHash(SlideParameterName);
     }
 
     private void Update()
@@ -38,10 +40,24 @@ public class PlayerAnimator : MonoBehaviour
         bool isFalling = rb.velocity.y < -0.01f;
         animator.SetBool(_isFallingHash, isFalling);
 
-        //animator.SetBool(_isDeadHash, health.IsDead());
+       
 
         //bool isHurting;
         //animator.SetBool(_isHurtingHash, health.TakeDamage(damage));
     }
 
+    public void TriggerDeath()
+    {
+        animator.SetTrigger(_isDeadHash);
+    }
+
+    public void TriggerHurt()
+    {
+        animator.SetTrigger(_isHurtingHash);
+    }
+
+    public void Slide()
+    {
+        animator.SetBool(_SlideHash, true);
+    }
 }

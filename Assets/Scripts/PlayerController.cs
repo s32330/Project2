@@ -11,15 +11,17 @@ public class PlayerController : MonoBehaviour
     public GroundChecker groundChecker;
     public PlayerHealth health;
     InventoryManager Inventory;
-    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer spriteRenderer;
     private Vector3 input;
+    private PlayerAnimator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        _animator = GetComponent<PlayerAnimator>();
         rb = GetComponent<Rigidbody2D>();
         health= GetComponent<PlayerHealth>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         //do inventory
         Inventory =GameObject.Find("Canvas").GetComponent<InventoryManager>();
@@ -67,6 +69,12 @@ public class PlayerController : MonoBehaviour
 
         Flip(moveInput);
 
+        /*if (Input.GetKey(KeyCode.S))
+        {
+            _animator.Slide();
+        }*/
+
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             rb.velocity = new Vector2(moveInput * runSpeed, rb.velocity.y);
@@ -90,11 +98,11 @@ public class PlayerController : MonoBehaviour
     {
         if (moveInput > 0)
         {
-            _spriteRenderer.flipX = false;
+           spriteRenderer.flipX = false;
         }
         else if (moveInput < 0)
         {
-            _spriteRenderer.flipX = true;
+            spriteRenderer.flipX = true;
         }
     }
 

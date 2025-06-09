@@ -13,17 +13,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Color32 EnterColor;
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Click");    }
+        //Debug.Log("Click");
+        }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Enter");
+        //Debug.Log("Enter");
         Target.color = EnterColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Exit");
+        //Debug.Log("Exit");
         Target.color = NormalColor;
     }
 

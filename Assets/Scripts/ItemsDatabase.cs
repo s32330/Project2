@@ -15,6 +15,12 @@ public class ItemsDatabase : MonoBehaviour
         Instance = this;
     }
 
+    public void Add(Item item)
+    {
+       PlayerItems.Add(item);
+        InventoryManager.Instance.UpdateSlots();
+    }
+
     
 }
 //zeby lista sie wyswietlala v

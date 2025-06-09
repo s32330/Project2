@@ -19,7 +19,7 @@ using UnityEngine;
         else
         {
 
-            ItemsDatabase.Instance.PlayerItems.Add(ItemsDatabase.Instance.Items[0]);
+            ItemsDatabase.Instance.Add(ItemsDatabase.Instance.Items[0]);
             Destroy(gameObject);
             
 
